@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1,
+    "title": "风行视频新春会员活动",
+    "bg_image": "../bg-1.png",
+    "start_time": "2025/12/17",
+    "end_time": "2026/03/31",
+    "detail_top_image": "../商详图1.jpg",
+    "detail_bottom_image": "../商详图2.jpeg",
+    "tag": "首3天试用视频会员"
+  }
+]
+

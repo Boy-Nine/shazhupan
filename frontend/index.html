@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>活动列表</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 顶部横幅 -->
+    <header class="header">
+        <div class="stars">⭐⭐</div>
+        <h1 class="header-title">签约领奖金·活动做不停</h1>
+    </header>
+
+    <!-- 活动列表 -->
+    <main class="main-content" id="activitiesContainer">
+        <div class="loading">加载中...</div>
+    </main>
+
+    <!-- 底部导航栏 -->
+    <nav class="bottom-nav">
+        <div class="nav-item active">
+            <div class="nav-icon">🏠</div>
+            <span>活动列表</span>
+        </div>
+        <div class="nav-item">
+            <div class="nav-icon">👤</div>
+            <span>个人中心</span>
+        </div>
+    </nav>
+
+    <!-- 登录弹窗 -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-modal">
+            <h2 class="login-title">登录注册享受更多福利</h2>
+            
+            <div class="login-form">
+                <input 
+                    type="tel" 
+                    id="phoneInput" 
+                    class="input-field" 
+                    placeholder="请输入手机号"
+                    maxlength="11"
+                >
+                
+                <div class="code-input-group">
+                    <input 
+                        type="text" 
+                        id="codeInput" 
+                        class="input-field code-input" 
+                        placeholder="请输入验证码"
+                        maxlength="6"
+                    >
+                    <button class="get-code-btn" id="getCodeBtn">获取验证码</button>
+                </div>
+                
+                <button class="login-btn" id="loginBtn">确认登录</button>
+                
+                <div class="agreement">
+                    <input type="checkbox" id="agreementCheck" class="checkbox">
+                    <label for="agreementCheck">
+                        登录即同意
+                        <a href="#" class="link">《用户注册协议》</a>
+                        和
+                        <a href="#" class="link">《隐私政策》</a>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast提示 -->
+    <div class="toast" id="toast"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>

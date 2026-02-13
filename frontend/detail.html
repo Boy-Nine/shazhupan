@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>活动详情</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="detail.css">
+</head>
+<body class="detail-body">
+    <div class="detail-page" id="detailPage">
+        <header class="detail-header">
+            <button class="detail-back" id="backBtn">＜</button>
+            <span class="detail-title" id="detailTitle">活动详情</span>
+        </header>
+
+        <main class="detail-main">
+            <section class="detail-banner">
+                <img id="detailTopImage" class="detail-top-image" src="" alt="活动主图">
+            </section>
+
+            <section class="detail-info">
+                <div class="detail-highlight">
+                    <p>续费每周<span class="highlight-number">1.1</span>元，每周自动续订</p>
+                </div>
+
+                <div class="detail-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">🔥</div>
+                        <div class="feature-text">海量内容</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">HD</div>
+                        <div class="feature-text">超清画质</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🚫</div>
+                        <div class="feature-text">免广告</div>
+                    </div>
+                </div>
+
+                <p class="detail-tip">还等什么？速来解锁超值福利！</p>
+            </section>
+
+            <section class="detail-bottom-section">
+                <img id="detailBottomImage" class="detail-bottom-image" src="" alt="活动说明">
+            </section>
+        </main>
+
+        <footer class="detail-footer">
+            <label class="detail-agreement">
+                <input type="checkbox" id="detailAgreementCheck" checked>
+                登录即同意
+                <a href="#" class="link">《用户注册协议》</a>
+                和
+                <a href="#" class="link">《隐私政策》</a>
+            </label>
+            <button class="detail-action-btn" id="receiveBtn">立即领取</button>
+        </footer>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="app.js"></script>
+    <script src="detail.js"></script>
+</body>
+</html>
+

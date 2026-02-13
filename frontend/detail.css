@@ -1,0 +1,141 @@
+.detail-body {
+    background-color: #FF4B5A;
+}
+
+.detail-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #FF4B5A;
+}
+
+.detail-header {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+}
+
+.detail-back {
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.detail-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.detail-main {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 80px;
+}
+
+.detail-banner {
+    background: #FF4B5A;
+}
+
+.detail-top-image {
+    width: 100%;
+    display: block;
+}
+
+.detail-info {
+    background: #FF4B5A;
+    padding: 16px;
+    text-align: center;
+    color: #fff;
+}
+
+.detail-highlight {
+    background: #FFEB3B;
+    color: #D32F2F;
+    border-radius: 20px;
+    padding: 8px 16px;
+    display: inline-block;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.highlight-number {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.detail-features {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px 0;
+}
+
+.feature-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+}
+
+.feature-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6px;
+    font-size: 18px;
+}
+
+.feature-text {
+    font-size: 12px;
+}
+
+.detail-tip {
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+.detail-bottom-section {
+    background: #FFE5E5;
+}
+
+.detail-bottom-image {
+    width: 100%;
+    display: block;
+}
+
+.detail-footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+    padding: 10px 16px 16px;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.detail-agreement {
+    display: block;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.detail-action-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 24px;
+    background: linear-gradient(135deg, #FFC107 0%, #FF9800 100%);
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+

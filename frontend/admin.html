@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>活动后台管理</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-body">
+    <header class="header">
+        <div class="stars">⭐️⭐️</div>
+        <h1 class="header-title">活动后台管理</h1>
+    </header>
+
+    <main class="admin-main">
+        <section class="admin-form-section">
+            <h2 class="admin-section-title">新增活动</h2>
+            <div class="admin-form">
+                <label class="admin-label">
+                    标题
+                    <input id="titleInput" class="input-field" placeholder="请输入活动标题">
+                </label>
+                <label class="admin-label">
+                    背景图地址（URL或相对路径）
+                    <input id="bgInput" class="input-field" placeholder="如 ../bg-1.png 或 https://...">
+                </label>
+                <label class="admin-label">
+                    活动开始时间
+                    <input id="startInput" class="input-field" placeholder="如 2025/12/17">
+                </label>
+                <label class="admin-label">
+                    活动结束时间
+                    <input id="endInput" class="input-field" placeholder="如 2026/03/31">
+                </label>
+                <label class="admin-label">
+                    商详上半部分图片地址
+                    <input id="topImgInput" class="input-field" placeholder="如 ../商详图1.jpg 或 https://...">
+                </label>
+                <label class="admin-label">
+                    商详下半部分图片地址
+                    <input id="bottomImgInput" class="input-field" placeholder="如 ../商详图2.jpeg 或 https://...">
+                </label>
+                <button id="createBtn" class="login-btn">保存活动</button>
+            </div>
+        </section>
+
+        <section class="admin-list-section">
+            <h2 class="admin-section-title">活动列表</h2>
+            <div id="adminActivities" class="admin-activities"></div>
+        </section>
+    </main>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="app.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
+
