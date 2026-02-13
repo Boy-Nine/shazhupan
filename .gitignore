@@ -3,5 +3,5 @@
 __pycache__/*
 .DS_Store
 ProjetTest/__pycache__/
-venv
+venv/*
 *.xlsx

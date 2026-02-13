@@ -66,7 +66,7 @@ class ActivityCreate(ActivityBase):
 
 
 class Activity(ActivityBase):
-    id: int
+    id: str
 
 
 # 工具函数
@@ -152,10 +152,19 @@ def save_activities(activities: List[dict]) -> None:
     ACTIVITY_FILE.write_text(json.dumps(activities, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def get_next_activity_id(activities: List[dict]) -> int:
-    if not activities:
-        return 1
-    return max(a.get("id", 0) for a in activities) + 1
+def generate_activity_id(activities: List[dict]) -> str:
+    """生成随机的8位字母数字组合，确保不重复"""
+    import string
+    existing_ids = {a.get("id", "") for a in activities}
+    
+    while True:
+        # 生成随机的8位字母数字组合
+        chars = string.ascii_letters + string.digits
+        activity_id = ''.join(secrets.choice(chars) for _ in range(8))
+        
+        # 确保ID不重复
+        if activity_id not in existing_ids:
+            return activity_id
 
 
 # API路由
@@ -270,10 +279,13 @@ async def get_activities(current_user: dict = Depends(get_current_user)):
 
 
 @app.get("/api/activities/{activity_id}", response_model=ResponseModel)
-async def get_activity_detail(activity_id: int, current_user: dict = Depends(get_current_user)):
+async def get_activity_detail(activity_id: str, current_user: dict = Depends(get_current_user)):
     """获取单个活动详情"""
     activities = load_activities()
+    print(f"[DEBUG] 接收到的活动ID: {activity_id}, 类型: {type(activity_id)}")
+    print(f"[DEBUG] 活动列表: {activities}")
     for item in activities:
+        print(f"[DEBUG] 遍历活动: {item}, ID: {item.get('id')}, 类型: {type(item.get('id'))}")
         if item.get("id") == activity_id:
             return {
                 "success": True,
@@ -288,8 +300,8 @@ async def get_activity_detail(activity_id: int, current_user: dict = Depends(get
 async def create_activity(activity: ActivityCreate, current_user: dict = Depends(get_current_user)):
     """创建活动（后台管理）"""
     activities = load_activities()
-    new_id = get_next_activity_id(activities)
-    new_activity = {"id": new_id, **activity.model_dict()}
+    new_id = generate_activity_id(activities)
+    new_activity = {"id": new_id, **activity.model_dump()}
     activities.append(new_activity)
     save_activities(activities)
 
@@ -301,7 +313,7 @@ async def create_activity(activity: ActivityCreate, current_user: dict = Depends
 
 
 @app.delete("/api/activities/{activity_id}", response_model=ResponseModel)
-async def delete_activity(activity_id: int, current_user: dict = Depends(get_current_user)):
+async def delete_activity(activity_id: str, current_user: dict = Depends(get_current_user)):
     """删除活动（后台管理）"""
     activities = load_activities()
     filtered = [a for a in activities if a.get("id") != activity_id]

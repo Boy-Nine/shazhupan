@@ -63,6 +63,37 @@
 
     <div class="toast" id="toast"></div>
 
+    <!-- 登录弹窗 -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-modal">
+            <div class="login-header">
+                <h3>登录/注册</h3>
+                <button class="close-btn" onclick="LoginModal.hide()">×</button>
+            </div>
+            <div class="login-body">
+                <div class="input-group">
+                    <label>手机号</label>
+                    <input type="tel" id="phoneInput" placeholder="请输入手机号" maxlength="11">
+                </div>
+                <div class="input-group">
+                    <label>验证码</label>
+                    <div class="code-input-wrapper">
+                        <input type="text" id="codeInput" placeholder="请输入验证码" maxlength="6">
+                        <button class="get-code-btn" id="getCodeBtn">获取验证码</button>
+                    </div>
+                </div>
+                <label class="agreement">
+                    <input type="checkbox" id="agreementCheck">
+                    登录即同意
+                    <a href="#" class="link">《用户注册协议》</a>
+                    和
+                    <a href="#" class="link">《隐私政策》</a>
+                </label>
+                <button class="login-btn" id="loginBtn">确认登录</button>
+            </div>
+        </div>
+    </div>
+
     <script src="app.js"></script>
     <script src="detail.js"></script>
 </body>

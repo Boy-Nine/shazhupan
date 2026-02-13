@@ -13,7 +13,10 @@ async function loadActivityDetail() {
 
     const result = await apiRequest(`/activities/${id}`);
     if (!result.success || !result.data) {
-        showToast(result.message || '加载活动详情失败');
+        // 如果是 401 错误，不显示加载活动详情失败的 toast，因为 apiRequest 函数已经显示了登录已过期，请重新登录的 toast，并且已经显示了登录弹窗
+        if (result.status !== 401) {
+            showToast(result.message || '加载活动详情失败');
+        }
         return;
     }
 
@@ -54,6 +57,35 @@ function initDetailPage() {
         }
         showToast('已领取，具体领取逻辑可根据业务补充');
     });
+
+    // 初始化登录弹窗事件
+    if (LoginModal && LoginModal.getCodeBtn && LoginModal.loginBtn) {
+        LoginModal.getCodeBtn.addEventListener('click', () => {
+            LoginModal.sendCode();
+        });
+        
+        LoginModal.loginBtn.addEventListener('click', () => {
+            LoginModal.login();
+        });
+        
+        // 回车键登录
+        if (LoginModal.codeInput) {
+            LoginModal.codeInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    LoginModal.login();
+                }
+            });
+        }
+        
+        // 点击遮罩关闭弹窗
+        if (LoginModal.overlay) {
+            LoginModal.overlay.addEventListener('click', (e) => {
+                if (e.target === LoginModal.overlay) {
+                    LoginModal.hide();
+                }
+            });
+        }
+    }
 
     loadActivityDetail();
 }

@@ -96,35 +96,49 @@ const LoginModal = {
     countdownTimer: null,
     
     show() {
-        this.overlay.classList.add('show');
-        document.body.style.overflow = 'hidden';
+        if (this.overlay) {
+            this.overlay.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
     },
     
     hide() {
-        this.overlay.classList.remove('show');
-        document.body.style.overflow = '';
-        this.resetForm();
+        if (this.overlay) {
+            this.overlay.classList.remove('show');
+            document.body.style.overflow = '';
+            this.resetForm();
+        }
     },
     
     resetForm() {
-        this.phoneInput.value = '';
-        this.codeInput.value = '';
-        this.agreementCheck.checked = false;
+        if (this.phoneInput) {
+            this.phoneInput.value = '';
+        }
+        if (this.codeInput) {
+            this.codeInput.value = '';
+        }
+        if (this.agreementCheck) {
+            this.agreementCheck.checked = false;
+        }
         this.resetCountdown();
     },
     
     startCountdown() {
         this.countdown = 60;
-        this.getCodeBtn.disabled = true;
-        
-        this.countdownTimer = setInterval(() => {
-            this.countdown--;
-            this.getCodeBtn.textContent = `${this.countdown}秒后重试`;
+        if (this.getCodeBtn) {
+            this.getCodeBtn.disabled = true;
             
-            if (this.countdown <= 0) {
-                this.resetCountdown();
-            }
-        }, 1000);
+            this.countdownTimer = setInterval(() => {
+                this.countdown--;
+                if (this.getCodeBtn) {
+                    this.getCodeBtn.textContent = `${this.countdown}秒后重试`;
+                }
+                
+                if (this.countdown <= 0) {
+                    this.resetCountdown();
+                }
+            }, 1000);
+        }
     },
     
     resetCountdown() {
@@ -133,11 +147,17 @@ const LoginModal = {
             this.countdownTimer = null;
         }
         this.countdown = 0;
-        this.getCodeBtn.disabled = false;
-        this.getCodeBtn.textContent = '获取验证码';
+        if (this.getCodeBtn) {
+            this.getCodeBtn.disabled = false;
+            this.getCodeBtn.textContent = '获取验证码';
+        }
     },
     
     validatePhone() {
+        if (!this.phoneInput) {
+            showToast('登录弹窗未初始化');
+            return false;
+        }
         const phone = this.phoneInput.value.trim();
         if (!phone) {
             showToast('请输入手机号');
@@ -174,6 +194,11 @@ const LoginModal = {
     },
     
     async login() {
+        if (!this.phoneInput || !this.codeInput || !this.agreementCheck || !this.loginBtn) {
+            showToast('登录弹窗未初始化');
+            return;
+        }
+        
         const phone = this.phoneInput.value.trim();
         const code = this.codeInput.value.trim();
         
@@ -208,7 +233,15 @@ const LoginModal = {
             // 隐藏登录弹窗
             showToast('登录成功');
             this.hide();
-            loadActivities();
+            // 仅在存在活动容器元素时加载活动列表
+            const activitiesContainer = document.getElementById('activitiesContainer');
+            if (activitiesContainer) {
+                loadActivities();
+            }
+            // 重新加载活动详情
+            if (typeof loadActivityDetail === 'function') {
+                loadActivityDetail();
+            }
         } else {
             showToast(result.message || '登录失败');
         }
@@ -223,6 +256,9 @@ function showLoginModal() {
 // 加载活动列表
 async function loadActivities() {
     const container = document.getElementById('activitiesContainer');
+    if (!container) {
+        return; // 如果容器不存在，直接返回，不执行后续操作
+    }
     container.innerHTML = '<div class="loading">加载中...</div>';
     
     const result = await apiRequest('/activities');
@@ -237,6 +273,9 @@ async function loadActivities() {
 // 渲染活动列表
 function renderActivities(activities) {
     const container = document.getElementById('activitiesContainer');
+    if (!container) {
+        return; // 如果容器不存在，直接返回，不执行后续操作
+    }
     
     if (!activities || activities.length === 0) {
         container.innerHTML = '<div class="loading">暂无活动</div>';
@@ -289,32 +328,41 @@ async function verifyToken() {
 // 初始化
 async function init() {
     // 绑定登录弹窗事件
-    LoginModal.getCodeBtn.addEventListener('click', () => {
-        LoginModal.sendCode();
-    });
-    
-    LoginModal.loginBtn.addEventListener('click', () => {
-        LoginModal.login();
-    });
-    
-    // 回车键登录
-    LoginModal.codeInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
+    if (LoginModal && LoginModal.getCodeBtn && LoginModal.loginBtn) {
+        LoginModal.getCodeBtn.addEventListener('click', () => {
+            LoginModal.sendCode();
+        });
+        
+        LoginModal.loginBtn.addEventListener('click', () => {
             LoginModal.login();
+        });
+        
+        // 回车键登录
+        if (LoginModal.codeInput) {
+            LoginModal.codeInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    LoginModal.login();
+                }
+            });
         }
-    });
-    
-    // 点击遮罩关闭弹窗
-    LoginModal.overlay.addEventListener('click', (e) => {
-        if (e.target === LoginModal.overlay) {
-            LoginModal.hide();
+        
+        // 点击遮罩关闭弹窗
+        if (LoginModal.overlay) {
+            LoginModal.overlay.addEventListener('click', (e) => {
+                if (e.target === LoginModal.overlay) {
+                    LoginModal.hide();
+                }
+            });
         }
-    });
+    }
     
-    // 验证token并加载活动列表
-    const isValid = await verifyToken();
-    if (isValid) {
-        loadActivities();
+    // 验证token并加载活动列表（仅在存在活动容器元素时执行）
+    const activitiesContainer = document.getElementById('activitiesContainer');
+    if (activitiesContainer) {
+        const isValid = await verifyToken();
+        if (isValid) {
+            loadActivities();
+        }
     }
 }
 
